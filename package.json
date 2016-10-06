@@ -1,13 +1,13 @@
 {
-  "name": "fullstack-assessment",
+  "name": "node-catapult-react-webpack",
   "version": "1.0.0",
-  "description": "",
+  "description": "Boilerplate for an ES6 Node, Express, React app bundled with Webpack and transpiled with Babel",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/nodemon server/index.js --ignore client/"
   },
-  "author": "Gilbert <gilbertbagrza@gmail.com>",
+  "author": "Maher D <madakkak@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.14.0",
