@@ -1,42 +1,58 @@
+//
+// Initialize our web server using Express
+//
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const morgan = require('morgan');
 module.exports = app;
 
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackConfig = require('../webpack.config.js');
 
-const wpConfig = webpack(webpackConfig);
+// Initialize mongo database connection
+require('./database/database-config.js');
 
-app.use(webpackMiddleware(wpConfig));
+//
+// Pull in webpack middleware using our custom webpack config
+//
+const webpackMiddleware = require('./webpack/webpack-setup');
+
+
+//
+// Attach middleware
+//
+
+// Attach morgan, a request logging middleware, to all routes
+app.use(morgan(':method :url :response-time :status'));
+
+// Configure webpack to bundle automatically
+app.use(webpackMiddleware);
+
+// Configure bodyParser to extract req.body as JSON
 app.use( bodyParser.json() );
 
 
-// var knex = require('knex')({
-//   client: 'sqlite3',
-//   connection: {
-//     filename: './github-fetcher.sqlite3'
-//   }
-// });
+//
+// Routes
+//
 
-// TODO: Set up mongo instead
-
-app.post('/repos/import', function (req, res) {
-  // TODO
+app.post('/approute', function (req, res) {
+  // Define a POST route as needed
 });
 
-
-app.get('/repos', function (req, res) {
-  // TODO
+app.get('/approute', function (req, res) {
+  // Define a GET route as needed
 });
 
-
+// Catch-all route
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname,'/../client/index.html'));
 });
 
+
+//
+// Start server
+//
 const port = process.env.PORT || 3000;
 app.listen(port);
 console.log("Listening on port " + port);
